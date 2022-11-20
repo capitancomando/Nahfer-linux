@@ -1,0 +1,12 @@
+declare -gx XDG_CONFIG_HOME=~/.config_nahfer
+# Source supplementary directories to export or overwrite existing standard ones.
+declare a="$XDG_CONFIG_HOME/user-dirs.dirs"
+if [[ -e $a ]]; then
+  source "$a"
+  declare b=""
+  for b in ${!XDG_*}; do
+    if [[ $b =~ ^XDG_[_[:alnum:]]+_DIR$ ]]; then
+      declare -gx "$b"
+    fi
+  done
+fi
